@@ -1,0 +1,68 @@
+cart = {}
+categories = set()
+
+while True:
+    print("\n===== SHOPPING CART =====")
+    print("1. Add Item")
+    print("2. Remove Item")
+    print("3. View Cart")
+    print("4. Total Bill")
+    print("5. Exit")
+
+    choice = input("Enter Choice: ")
+
+    if choice == "1":
+        item = input("Enter Item Name: ")
+
+        if item in cart:
+            print("Item already exists in cart!")
+        else:
+            price = float(input("Enter Price: "))
+            category = input("Enter Category: ")
+
+            cart[item] = {
+                "price": price,
+                "category": category
+            }
+
+            categories.add(category)
+            print(item, "added successfully!")
+
+    elif choice == "2":
+        item = input("Enter Item Name to Remove: ")
+
+        if item in cart:
+            del cart[item]
+            print(item, "removed successfully!")
+        else:
+            print("Item not found!")
+
+    elif choice == "3":
+        if not cart:
+            print("Cart is Empty!")
+        else:
+            print("\nItems in Cart:")
+            for item, details in cart.items():
+                print(
+                    f"{item} | Price: ₹{details['price']} | Category: {details['category']}"
+                )
+
+            print("Categories:", categories)
+
+    elif choice == "4":
+        total = 0
+
+        print("\n===== BILL =====")
+        for item, details in cart.items():
+            print(f"{item} : ₹{details['price']}")
+            total += details['price']
+
+        print("----------------")
+        print("Total Bill = ₹", total)
+
+    elif choice == "5":
+        print("Thank You for Shopping!")
+        break
+
+    else:
+        print("Invalid Choice!")
